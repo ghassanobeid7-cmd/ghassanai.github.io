@@ -155,6 +155,11 @@ body::before {
   gap: 8px;
 }
 
+.mobile-nav-controls,
+.mobile-dropdown {
+  display: none;
+}
+
 .theme-toggle,
 .nav-cta {
   min-height: 40px;
@@ -188,6 +193,7 @@ body::before {
 .theme-toggle:hover,
 .nav-cta:hover,
 .scroll-cta:hover,
+.hero-github-link:hover,
 .suggestion-btn:hover,
 .contact-card:hover,
 .roadmap-node:hover {
@@ -249,6 +255,56 @@ h2 {
   color: #fff;
   background: linear-gradient(135deg, var(--accent), var(--secondary));
   font-weight: 700;
+}
+
+.hero-actions {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.hero-actions .scroll-cta {
+  margin-top: 0;
+}
+
+.hero-github-link {
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--text);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.projects-panel {
+  margin-top: 18px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px;
+  background: var(--card);
+  box-shadow: var(--shadow);
+  text-align: center;
+  display: grid;
+  gap: 14px;
+}
+
+.projects-copy {
+  margin: 0;
+  color: var(--muted);
+}
+
+.projects-cta {
+  justify-self: center;
+  min-height: 44px;
+  padding: 0 20px;
 }
 
 .roadmap {
@@ -801,17 +857,145 @@ button:hover {
     min-height: 50px;
     transform: translateY(0);
     opacity: 1;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
   }
 
-  .site-nav {
-    padding: 3px;
+  .site-nav,
+  .site-actions {
+    display: none;
   }
 
-  .site-nav a,
-  .theme-toggle,
-  .nav-cta {
-    min-height: 32px;
-    font-size: 0.74rem;
+  .mobile-nav-controls {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  .mobile-github,
+  .mobile-menu-toggle {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    padding: 0;
+    transition: border-color 0.22s ease, background 0.22s ease;
+  }
+
+  .mobile-github svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .mobile-github:hover,
+  .mobile-menu-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.24);
+  }
+
+  .mobile-menu-toggle {
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .mobile-menu-toggle span {
+    width: 18px;
+    height: 2px;
+    border-radius: 999px;
+    background: var(--text);
+    transition: transform 0.28s ease, opacity 0.2s ease;
+  }
+
+  .mobile-menu-toggle.is-open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .mobile-menu-toggle.is-open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-menu-toggle.is-open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .mobile-dropdown {
+    display: block;
+    grid-column: 1 / -1;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    margin-top: 0;
+    padding: 0 10px;
+    border: 1px solid transparent;
+    border-radius: 14px;
+    background: linear-gradient(130deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.04));
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    transition: max-height 0.35s ease, opacity 0.25s ease, margin-top 0.25s ease, padding 0.25s ease, border-color 0.25s ease;
+  }
+
+  .site-header.mobile-menu-open .mobile-dropdown {
+    max-height: 620px;
+    opacity: 1;
+    pointer-events: auto;
+    margin-top: 10px;
+    padding: 10px;
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .mobile-dropdown > a,
+  .mobile-dropdown .theme-toggle,
+  .mobile-dropdown .nav-cta {
+    width: 100%;
+    min-height: 0;
+    padding: 13px 12px;
+    margin: 0;
+    border-radius: 10px;
+    font-size: 0.85rem;
+  }
+
+  .mobile-dropdown > a {
+    display: block;
+    border: 1px solid transparent;
+    color: var(--text);
+    text-decoration: none;
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  }
+
+  .mobile-dropdown > a + a {
+    margin-top: 4px;
+  }
+
+  .mobile-dropdown > a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--border);
+    transform: translateX(2px);
+  }
+
+  .mobile-dropdown-actions {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    display: grid;
+    gap: 6px;
+  }
+
+  .mobile-dropdown .theme-toggle,
+  .mobile-dropdown .nav-cta {
+    justify-content: flex-start;
+  }
+
+  .mobile-dropdown .nav-cta {
+    border-color: transparent;
   }
 
   .chat-input-wrap {
@@ -827,6 +1011,16 @@ button:hover {
   .section {
     width: min(94vw, 1080px);
     padding: 54px 0;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .hero-actions .scroll-cta,
+  .hero-github-link,
+  .projects-cta {
+    width: 100%;
   }
 
   .brand-copy small {
